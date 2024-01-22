@@ -13,8 +13,8 @@ export class Appointment {
   private props : AppointmentProps;
 
 
-  get costumer() {
-    return this.props.costumer;
+  get customer() {
+    return this.props.customer;
   }
 
   get startsAt() {
@@ -25,8 +25,19 @@ export class Appointment {
     return this.props.endsAt;
   }
 
+  constructor(props : AppointmentProps) {
+    const now = new Date();
 
-  constructor(props : AppoitmentProps) {
+    // Validação da data inicial:
+    if (props.startsAt < now) {
+      throw new Error('Data inicial inválida: deve ser posterior à data atual');
+    }
+
+    // Validação da data final:
+    if (props.endsAt <= props.startsAt) {
+      throw new Error('Data final inválida: deve ser posterior à data inicial');
+    }
+
     this.props = props;
   }
 
