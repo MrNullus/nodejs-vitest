@@ -8,5 +8,8 @@
   },
   "scripts": {
     "test": "vitest"
+  },
+  "dependencies": {
+    "date-fns": "^3.3.1"
   }
 }

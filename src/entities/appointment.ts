@@ -29,7 +29,7 @@ export class Appointment {
     const now = new Date();
 
     // Validação da data inicial:
-    if (props.startsAt < now) {
+    if (props.startsAt <= now) {
       throw new Error('Data inicial inválida: deve ser posterior à data atual');
     }
 

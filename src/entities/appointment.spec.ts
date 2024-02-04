@@ -1,19 +1,17 @@
-  import { test, expect } from 'vitest';
-  import { Appointment } from './appointment.ts';
+import { test, expect } from 'vitest';
+import { Appointment } from './appointment.ts';
+import { getFutureDate } from '../tests/utils/get-future-date';
 
-  // test vai ser a função que vai receber o teste
-  // test('Title Test', () => console.log('Testeeee'))
+// test vai ser a função que vai receber o teste
+// test('Title Test', () => console.log('Testeeee'))
 test('Create an appointment', () => {
-  const startsAt = new Date();
-  const endsAt   = new Date();
-
-  startsAt.setDate(startsAt.getDate() + 1);
-  endsAt.setDate(endsAt.getDate() + 2);
+  const startsAt = getFutureDate('2022-05-05');
+  const endsAt   = getFutureDate('2022-05-06');
 
   const appointment = new Appointment({
     customer : "Fulano",
-    startsAt : new Date(),
-    endsAt
+    startsAt : startsAt,
+    endsAt   : endsAt
   });
 
   // expect vai servir para verificar algo experado
@@ -24,11 +22,8 @@ test('Create an appointment', () => {
 
 
 test('Cannot create appoint with end date befoe start date', () => {
-  const startsAt = new Date();
-  const endsAt   = new Date();
-
-  startsAt.setDate(startsAt.getDate() + 2);
-  endsAt.setDate(endsAt.getDate() + 1);
+  const startsAt = getFutureDate('2022-05-05');
+  const endsAt   = getFutureDate('2022-05-04');
  
   expect(() => {
     return new Appointment({
@@ -41,11 +36,8 @@ test('Cannot create appoint with end date befoe start date', () => {
 });
 
 test('Cannot create appoint with start date before now', () => {
-  const startsAt = new Date();
-  const endsAt   = new Date();
-
-  startsAt.setDate(startsAt.getDate() - 1);
-  endsAt.setDate(endsAt.getDate() + 1);
+  const startsAt = getFutureDate('2022-05-03');
+  const endsAt   = getFutureDate('2022-05-05');
  
   expect(() => {
     return new Appointment({
